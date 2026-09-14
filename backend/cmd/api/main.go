@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/atharvshivarkar/referral-intelligence/internal/company"
 	"github.com/atharvshivarkar/referral-intelligence/internal/config"
 	"github.com/atharvshivarkar/referral-intelligence/internal/database"
 	"github.com/atharvshivarkar/referral-intelligence/internal/health"
@@ -19,10 +20,16 @@ func main() {
 
 	defer db.Close()
 
+	//health module
 	healthService := health.NewService(db)
 	healthHandler := health.NewHandler(healthService)
 
-	r := router.Setup(healthHandler)
+	//company module
+	companyRepository := company.NewRepository(db)
+	companyService := company.NewService(companyRepository)
+	companyHandler := company.NewHandler(&companyService)
+
+	r := router.Setup(healthHandler, companyHandler)
 
 	port := cfg.Port
 
