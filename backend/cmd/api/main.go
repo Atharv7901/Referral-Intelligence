@@ -24,11 +24,15 @@ func main() {
 	healthService := health.NewService(db)
 	healthHandler := health.NewHandler(healthService)
 
+	//source resolver module
+	sourceRepository := company.NewSourceRepository(db)
+	atsDetector := company.NewATSDetector()
+	sourceResolver := company.NewSourceResolver(&sourceRepository, &atsDetector)
+
 	//company module
 	companyRepository := company.NewRepository(db)
-	companyService := company.NewService(companyRepository)
+	companyService := company.NewService(companyRepository, &sourceResolver)
 	companyHandler := company.NewHandler(&companyService)
-
 	r := router.Setup(healthHandler, companyHandler)
 
 	port := cfg.Port

@@ -11,15 +11,18 @@ type Service interface {
 	GetByID(ctx context.Context, id uint64) (*Company, error)
 	GetBySlug(ctx context.Context, slug string) (*Company, error)
 	List(ctx context.Context, search string) ([]Company, error)
+	ResolveSource(ctx context.Context, companyId uint64) ([]CompanySource, error)
 }
 
 type service struct {
-	repository Repository
+	repository     Repository
+	sourceResolver SourceResolver
 }
 
-func NewService(repository Repository) service {
+func NewService(repository Repository, sourceResolver SourceResolver) service {
 	return service{
-		repository: repository,
+		repository:     repository,
+		sourceResolver: sourceResolver,
 	}
 }
 
@@ -75,4 +78,16 @@ func (s *service) List(ctx context.Context, search string) ([]Company, error) {
 	search = strings.TrimSpace(search)
 
 	return s.repository.List(ctx, search)
+}
+
+func (s *service) ResolveSource(
+	ctx context.Context,
+	companyID uint64,
+) ([]CompanySource, error) {
+	company, err := s.repository.GetById(ctx, companyID)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.sourceResolver.Resolve(ctx, company)
 }

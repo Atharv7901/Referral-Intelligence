@@ -113,3 +113,39 @@ func (h *Handler) List(c *gin.Context) {
 
 	c.JSON(http.StatusOK, companies)
 }
+
+func (h *Handler) ResolveSource(c *gin.Context) {
+	id, err := strconv.ParseUint(
+		c.Param("id"),
+		10,
+		64,
+	)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid company id",
+		})
+		return
+	}
+
+	sources, err := h.service.ResolveSource(
+		c.Request.Context(),
+		id,
+	)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			c.JSON(http.StatusNotFound, gin.H{
+				"error": "company not found",
+			})
+			return
+		}
+
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "failed to resolve company sources",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"sources": sources,
+	})
+}

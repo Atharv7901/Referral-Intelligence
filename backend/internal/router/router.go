@@ -17,6 +17,7 @@ func Setup(healthHandler *health.Handler, companyHandler *company.Handler) *gin.
 		api.GET("/companies", companyHandler.List)
 		api.GET("/companies/:id", companyHandler.GetByID)
 		api.POST("/companies", companyHandler.Create)
+		api.POST("/companies/:id/sources/resolve", companyHandler.ResolveSource)
 	}
 
 	return router
