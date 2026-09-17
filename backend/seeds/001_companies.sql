@@ -1,0 +1,161 @@
+INSERT INTO companies (
+    name,
+    slug,
+    website,
+    linkedin_url,
+    career_page_url,
+    company_type,
+    is_active
+)
+VALUES
+(
+    'Google',
+    'google',
+    'https://www.google.com',
+    'https://www.linkedin.com/company/google',
+    'https://careers.google.com',
+    'product',
+    TRUE
+),
+(
+    'Microsoft',
+    'microsoft',
+    'https://www.microsoft.com',
+    'https://www.linkedin.com/company/microsoft',
+    'https://careers.microsoft.com',
+    'product',
+    TRUE
+),
+(
+    'Amazon',
+    'amazon',
+    'https://www.amazon.com',
+    'https://www.linkedin.com/company/amazon',
+    'https://www.amazon.jobs',
+    'product',
+    TRUE
+),
+(
+    'Meta',
+    'meta',
+    'https://www.meta.com',
+    'https://www.linkedin.com/company/meta',
+    'https://www.careers.linkedin.com/',
+    'product',
+    TRUE
+),
+(
+    'Apple',
+    'apple',
+    'https://www.apple.com',
+    'https://www.linkedin.com/company/apple',
+    'https://www.careers.apple.com/',
+    'product',
+    TRUE
+),
+(
+    'Atlassian',
+    'atlassian',
+    'https://www.atlassian.com',
+    'https://www.linkedin.com/company/atlassian',
+    'https://www.atlassian.com/company/careers',
+    'product',
+    TRUE
+),
+(
+    'Uber',
+    'uber',
+    'https://www.uber.com',
+    'https://www.linkedin.com/company/uber-com',
+    'https://www.uber.com/us/en/careers/',
+    'product',
+    TRUE
+),
+(
+    'Stripe',
+    'stripe',
+    'https://stripe.com',
+    'https://www.linkedin.com/company/stripe',
+    'https://stripe.com/jobs',
+    'product',
+    TRUE
+),
+(
+    'Airbnb',
+    'airbnb',
+    'https://www.airbnb.com',
+    'https://www.linkedin.com/company/airbnb',
+    'https://careers.airbnb.com',
+    'product',
+    TRUE
+),
+(
+    'Datadog',
+    'datadog',
+    'https://www.datadoghq.com',
+    'https://www.linkedin.com/company/datadog',
+    'https://careers.datadoghq.com',
+    'product',
+    TRUE
+),
+(
+    'Cloudflare',
+    'cloudflare',
+    'https://www.cloudflare.com',
+    'https://www.linkedin.com/company/cloudflare',
+    'https://www.cloudflare.com/careers/',
+    'product',
+    TRUE
+),
+(
+    'Canva',
+    'canva',
+    'https://www.canva.com',
+    'https://www.linkedin.com/company/canva',
+    'https://www.canva.com/careers/',
+    'product',
+    TRUE
+),
+(
+    'Figma',
+    'figma',
+    'https://www.figma.com',
+    'https://www.linkedin.com/company/figma',
+    'https://www.figma.com/careers/',
+    'product',
+    TRUE
+),
+(
+    'Notion',
+    'notion',
+    'https://www.notion.com',
+    'https://www.linkedin.com/company/notionhq',
+    'https://www.notion.com/careers',
+    'product',
+    TRUE
+),
+(
+    'Rippling',
+    'rippling',
+    'https://www.rippling.com',
+    'https://www.linkedin.com/company/rippling',
+    'https://www.rippling.com/careers',
+    'product',
+    TRUE
+),
+(
+    'Ramp',
+    'ramp',
+    'https://ramp.com',
+    'https://www.linkedin.com/company/ramp',
+    'https://ramp.com/careers',
+    'product',
+    TRUE
+)
+ON DUPLICATE KEY UPDATE
+    name = VALUES(name),
+    website = VALUES(website),
+    linkedin_url = VALUES(linkedin_url),
+    career_page_url = VALUES(career_page_url),
+    company_type = VALUES(company_type),
+    is_active = VALUES(is_active);
